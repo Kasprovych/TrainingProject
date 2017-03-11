@@ -10,8 +10,6 @@ import ua.service.CountryService;
 public class CountryValidator implements Validator {
 	
 	CountryService countryService;
-	
-	
 
 	public CountryValidator(CountryService countryService) {
 		this.countryService = countryService;

@@ -63,9 +63,11 @@
     					</div>
   					</div>
   					<div class="form-group">
-    					<label for="name" class="col-sm-3 control-label">Price</label>
+  					<label for="price" class="col-sm-offset-3 col-sm-9"><form:errors
+										path="price" /></label>
+    					<label for="price" class="col-sm-3 control-label">Price</label>
     					<div class="col-sm-9">
-      						<form:input class="form-control" path="price" id="name"/>
+      						<form:input class="form-control" path="price" id="price"/>
     					</div>
   					</div>
   					<div class="form-group">

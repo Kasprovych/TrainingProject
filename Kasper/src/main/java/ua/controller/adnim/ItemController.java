@@ -2,9 +2,12 @@ package ua.controller.adnim;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import ua.dto.form.ItemForm;
 import ua.editor.BrandEditor;
 import ua.editor.KindEditor;
 import ua.editor.PowerEditor;
@@ -22,16 +26,20 @@ import ua.entity.Item;
 import ua.entity.Kind;
 import ua.entity.Power;
 import ua.entity.Size;
+import ua.repository.itemRepository;
 import ua.service.BrandService;
 import ua.service.ItemService;
 import ua.service.KindService;
 import ua.service.PowerService;
 import ua.service.SizeService;
+import ua.validator.ItemValidator;
 
 @Controller
 @RequestMapping("/admin/item")
 @SessionAttributes(names = "item")
 public class ItemController {
+	
+	private itemRepository itemRepository;
 	@Autowired
 	private ItemService itemService;
 
@@ -53,6 +61,7 @@ public class ItemController {
 		binder.registerCustomEditor(Kind.class, new KindEditor(kindService));
 		binder.registerCustomEditor(Power.class, new PowerEditor(powerService));
 		binder.registerCustomEditor(Size.class, new SizeEditor(sizeService));
+		//binder.setValidator(new ItemValidator(itemRepository));
 
 	}
 
@@ -76,11 +85,13 @@ public class ItemController {
 		itemService.delete(id);
 		return "redirect:/admin/item";
 	}
-	
-	
-	@RequestMapping(method=POST)
-	public String save(@ModelAttribute("item") Item item, SessionStatus sessionStatus){
-		itemService.save(item);
+
+	@RequestMapping(method = POST)
+	public String save(@ModelAttribute("item")  Item itemForm,
+			SessionStatus sessionStatus) {
+		
+
+		itemService.save(itemForm);
 		sessionStatus.setComplete();
 		return "redirect:/admin/item";
 	}

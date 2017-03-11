@@ -9,7 +9,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-
 @Table(name = "item")
 public class Item  extends AbstractEntity{
 	
