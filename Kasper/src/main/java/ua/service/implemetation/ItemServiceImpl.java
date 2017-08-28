@@ -18,26 +18,22 @@ public class ItemServiceImpl implements ItemService {
 	@Autowired
 	itemRepository repository;
 
+	
+
 	@Override
 	@Transactional(readOnly = true)
-	public Item findOne(int id) {
-		return repository.findOne(id);
-	}
-
-	/*@Override
-	@Transactional(readOnly = true)
 	public ItemForm findForm(int id) {
-		Item item = new Item();
+		Item item = repository.findOne(id);
 		ItemForm itemForm = new ItemForm();
 		itemForm.setId(item.getId());
+		itemForm.setName(item.getName());
+		itemForm.setPrice(String.valueOf(item.getPrice()));
 		itemForm.setBrand(item.getBrand());
 		itemForm.setKind(item.getKind());
 		itemForm.setPower(item.getPower());
 		itemForm.setSize(item.getSize());
-		itemForm.setName(item.getName());
-		itemForm.setPrice(String.valueOf(item.getPrice()));
 		return itemForm;
-	}*/
+	}
 
 	@Override
 	@Transactional(readOnly = true)
@@ -51,11 +47,15 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public void save(Item item) {
-		/*Item item = new Item();
+	public void save(ItemForm itemForm) {
+		Item item = new Item();
 		item.setId(itemForm.getId());
 		item.setName(itemForm.getName());
-		item.setPrice(new BigDecimal(itemForm.getPrice().replace(',', '.')));*/
+		item.setPrice(new BigDecimal(itemForm.getPrice().replace(',', '.')));
+		item.setBrand(itemForm.getBrand());
+		item.setKind(itemForm.getKind());
+		item.setPower(itemForm.getPower());
+		item.setSize(itemForm.getSize());
 		repository.save(item);
 	}
 

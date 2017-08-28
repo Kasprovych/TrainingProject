@@ -33,6 +33,8 @@
 			<div class="col-md-12 col-xs-12">
 				<form:form class="form-horizontal" action="/admin/item" method="POST" modelAttribute="item">
 					<div class="form-group">
+					<label for="price" class="col-sm-offset-3 col-sm-9"><form:errors
+										path="name" /></label>
     					<label for="name" class="col-sm-3 control-label">Name</label>
     					<div class="col-sm-9">
       						<form:input class="form-control" path="name" id="name"/>

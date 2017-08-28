@@ -61,13 +61,13 @@ public class ItemController {
 		binder.registerCustomEditor(Kind.class, new KindEditor(kindService));
 		binder.registerCustomEditor(Power.class, new PowerEditor(powerService));
 		binder.registerCustomEditor(Size.class, new SizeEditor(sizeService));
-		//binder.setValidator(new ItemValidator(itemRepository));
+		binder.setValidator(new ItemValidator());
 
 	}
 
 	@ModelAttribute("item")
-	public Item getForm() {
-		return new Item();
+	public ItemForm getForm() {
+		return new ItemForm();
 	}
 
 	@RequestMapping
@@ -87,8 +87,13 @@ public class ItemController {
 	}
 
 	@RequestMapping(method = POST)
-	public String save(@ModelAttribute("item")  Item itemForm,
+	public String save(@ModelAttribute("item") @Valid ItemForm itemForm,BindingResult br,Model model,
 			SessionStatus sessionStatus) {
+		
+		if(br.hasErrors()){
+			show(model);
+			return "admin-item";
+		}
 		
 
 		itemService.save(itemForm);
