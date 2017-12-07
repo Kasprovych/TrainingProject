@@ -13,7 +13,7 @@ import ua.service.PowerService;
 @Service
 public class PowerServiceImpl implements PowerService{
 	@Autowired
-	PowerRepository repository;
+	private PowerRepository repository;
 
 	@Override
 	@Transactional(readOnly=true)
